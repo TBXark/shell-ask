@@ -49,11 +49,15 @@ export SHELL_ASK_CONFIG_FILE=/path/to/config.json
 Generate Shell commands based on questions:
 ```bash
 ask "What was my last git commit message?"
+# Output:
+# git log -1 --pretty=%B
 ```
 
 Using command output as context:
 ```bash
 ifconfig -a | ask "My local IP"
+# Output:
+# Your local IP address is `192.168.31.200`
 ```
 
 ## Thanks
