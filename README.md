@@ -35,7 +35,7 @@ ask "What was my last git commit message?"
 
 Using command output as context:
 ```bash
-ask ifconfig -a | ./ask.sh My local IP
+ifconfig -a | ask My local IP
 ```
 
 ## Thanks
