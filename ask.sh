@@ -11,20 +11,20 @@ config_file=${SHELL_ASK_CONFIG_FILE:-"$config_dir/config.json"}
 
 
 send_request() {
-    content=$1
+    local content=$1
 
-    body=$(jq -n --arg content "$content" --arg model "$api_model" '{
+    local body=$(jq -n --arg content "$content" --arg model "$api_model" '{
         model: "\($model)",
         messages: [{"role": "user", "content": "\($content)"}],
         temperature: 0.3
     }')
 
-    response=$(curl -s $api_endpoint \
+    local response=$(curl -s $api_endpoint \
         -H "Content-Type: application/json" \
         -H "Authorization: Bearer $api_key" \
         -d "$body")
     
-    error=$(echo $response | jq -r '.error.message')
+    local error=$(echo $response | jq -r '.error.message')
 
     if [ "$error" != "null" ]; then
         echo $error
@@ -37,6 +37,7 @@ ask() {
     local input=""
     local content=""
     local prompt="$1"
+    local content=""
 
     if [ -p /dev/stdin ]; then
         input=$(cat -)
@@ -45,8 +46,8 @@ ask() {
     if [ ! -z "$input" ]; then
         content="According to the following shell output, using $answer_language to answer the question below: $prompt, here is the shell output: $input"
     else
-        shell_name=$(basename $SHELL)
-        os_name=$(uname)
+        local shell_name=$(basename $SHELL)
+        local os_name=$(uname)
         content="Return commands suitable for copy/pasting into $shell_name on $os_name. Do NOT include commentary NOR Markdown triple-backtick code blocks as your whole response will be copied into my terminal automatically.\n\nThe script should do this: $prompt"
     fi
 
@@ -64,7 +65,7 @@ ask_with_plugin() {
     fi
 
     if [ -f "$plugin" ]; then
-        content=$(sh $plugin $location $prompt $input)
+        local content=$(sh $plugin $location $prompt $input)
         send_request "$content"
     else
         echo "Plugin not found: $plugin"
@@ -81,7 +82,7 @@ load_config() {
 }
 
 get_config() {
-    key=$1
+    local key=$1
     jq -r --arg key "$key" '.[$key]' $config_file
 }
 
@@ -99,18 +100,20 @@ set_config() {
         }' > $config_file
     fi
 
-    key=$1
-    value=$2
+    local key=$1
+    local value=$2
     
     jq -r --arg key "$key" --arg value "$value" '.[$key] = $value' $config_file > tmp.$$.json && mv tmp.$$.json $config_file
 }
 
 install_plugin() {
-    url=$1
-    name=$(basename $url)
+    local url=$1
+    local name=$(basename $url)
+
     if [ ! -d "$config_dir/plugins" ]; then
         mkdir -p $config_dir/plugins
     fi
+    
     curl -s $url > $config_dir/plugins/$name
 }
 
