@@ -9,7 +9,7 @@ Ask LLM directly from your terminal
 This script is written in bash, Simply download the script and add execution permissions, this script relies on `curl` and `jq`, make sure they are installed on your system!
 
 ```bash
-curl https://raw.githubusercontent.com/TBXark/shell-ask/ask.sh > /usr/local/bin/ask
+curl https://raw.githubusercontent.com/TBXark/shell-ask/master/ask.sh > /usr/local/bin/ask
 chmod +x /usr/local/bin/ask
 ```
 
