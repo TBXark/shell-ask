@@ -10,21 +10,8 @@ config_dir=${SHELL_ASK_CONFIG_DIR:-"$HOME/.config/ask.sh"}
 config_file=${SHELL_ASK_CONFIG_FILE:-"$config_dir/config.json"}
 
 
-ask() {
-    local input=""
-    local content=""
-    local prompt="$1"
-    if [ -p /dev/stdin ]; then
-        input=$(cat -)
-    fi
-    
-    if [ ! -z "$input" ]; then
-        content="According to the following shell output, using $answer_language to answer the question below: $prompt, here is the shell output: $input"
-    else
-        shell_name=$(basename $SHELL)
-        os_name=$(uname)
-        content="Return commands suitable for copy/pasting into $shell_name on $os_name. Do NOT include commentary NOR Markdown triple-backtick code blocks as your whole response will be copied into my terminal automatically.\n\nThe script should do this: $prompt"
-    fi
+send_request() {
+    content=$1
 
     body=$(jq -n --arg content "$content" --arg model "$api_model" '{
         model: "\($model)",
@@ -38,10 +25,49 @@ ask() {
         -d "$body")
     
     error=$(echo $response | jq -r '.error.message')
+
     if [ "$error" != "null" ]; then
         echo $error
     else
         echo $response | jq -r '.choices[0].message.content'
+    fi
+}
+
+ask() {
+    local input=""
+    local content=""
+    local prompt="$1"
+
+    if [ -p /dev/stdin ]; then
+        input=$(cat -)
+    fi
+    
+    if [ ! -z "$input" ]; then
+        content="According to the following shell output, using $answer_language to answer the question below: $prompt, here is the shell output: $input"
+    else
+        shell_name=$(basename $SHELL)
+        os_name=$(uname)
+        content="Return commands suitable for copy/pasting into $shell_name on $os_name. Do NOT include commentary NOR Markdown triple-backtick code blocks as your whole response will be copied into my terminal automatically.\n\nThe script should do this: $prompt"
+    fi
+
+    send_request "$content"
+}
+
+ask_with_plugin() {
+    local input=""
+    local plugin=$1
+    local location=$(pwd)
+    local prompt=${@:2}
+
+    if [ -p /dev/stdin ]; then
+        input=$(cat -)
+    fi
+
+    if [ -f "$plugin" ]; then
+        content=$(sh $plugin $location $prompt $input)
+        send_request "$content"
+    else
+        echo "Plugin not found: $plugin"
     fi
 }
 
@@ -75,7 +101,17 @@ set_config() {
 
     key=$1
     value=$2
+    
     jq -r --arg key "$key" --arg value "$value" '.[$key] = $value' $config_file > tmp.$$.json && mv tmp.$$.json $config_file
+}
+
+install_plugin() {
+    url=$1
+    name=$(basename $url)
+    if [ ! -d "$config_dir/plugins" ]; then
+        mkdir -p $config_dir/plugins
+    fi
+    curl -s $url > $config_dir/plugins/$name
 }
 
 case $1 in
@@ -84,6 +120,19 @@ case $1 in
         ;;
     get-config)
         get_config $2
+        ;;
+    install-plugin)
+        install_plugin $2
+        ;;
+    -p|--plugin)
+        load_config
+        plugin=$config_dir/plugins/$2
+        prompt=${@:3}
+        if [ -f "$plugin" ]; then
+            ask_with_plugin $plugin $prompt
+        else
+            echo "Plugin not found: $plugin"
+        fi
         ;;
     *)
         load_config

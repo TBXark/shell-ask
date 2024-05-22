@@ -1,0 +1,7 @@
+#!/bin/bash
+
+location=$1
+question=$2 # target language
+context=$3 # need translation text
+
+echo "将以下文本翻译为 $question: $context"
