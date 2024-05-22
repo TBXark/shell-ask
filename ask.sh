@@ -48,9 +48,7 @@ load_config() {
         api_key=$(jq -r '.api_key' $config_file)
         api_model=$(jq -r '.api_model' $config_file)
         api_endpoint=$(jq -r '.api_endpoint' $config_file)
-        answer_language=$(jq -r '.answer_language' $config_file)
-    else
-        api_key=$SHELL_ASK_API_KEY       
+        answer_language=$(jq -r '.answer_language' $config_file)     
     fi
 }
 
