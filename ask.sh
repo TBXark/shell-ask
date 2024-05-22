@@ -3,7 +3,7 @@
 api_key=${SHELL_ASK_API_KEY:-""}
 api_model=${SHELL_ASK_API_MODEL:-"gpt-3.5-turbo"}
 api_endpoint=${SHELL_ASK_API_ENDPOINT:-"https://api.openai.com/v1/chat/completions"}
-answer_language=${SHELL_ASK_ANSWER_LANGUAGE:-"chinese"}
+answer_language=${SHELL_ASK_ANSWER_LANGUAGE:-"english"}
 config_dir=${SHELL_ASK_CONFIG_DIR:-"$HOME/.config/ask.sh"}
 config_file=${SHELL_ASK_CONFIG_FILE:-"$config_dir/config.json"}
 

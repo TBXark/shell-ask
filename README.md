@@ -18,28 +18,46 @@ chmod +x /usr/local/bin/ask
 - All OpenAI Compatible LLMs API
 
 ## Configuration
+
+### Config File
 ```bash
 ask set-config api_key sk-xxxx
 ask set-config model_name deepseek-chat
+ask set-config answer_language chinese
 ask set-config api_endpoint https://api.deepseek.com/chat/completions
 ```
 
-You can also edit ~/.config/ask.sh/config.json directly
+You can also edit `~/.config/ask.sh/config.json` directly
+
+### Environment Variables
+You can also set the following environment variables in your shell profile:
+```bash
+export SHELL_ASK_API_KEY=xxx
+export SHELL_ASK_MODEL_NAME=xxx
+export SHELL_ASK_ANSWER_LANGUAGE=xxx
+export SHELL_ASK_API_ENDPOINT=xxx
+```
+
+Or you can change configuration file path by setting `SHELL_ASK_CONFIG_FILE` environment variable
+
+```bash
+export SHELL_ASK_CONFIG_FILE=/path/to/config.json
+```
+
 
 ## Usage
-Ask a question:
-
+Generate Shell commands based on questions:
 ```bash
 ask "What was my last git commit message?"
 ```
 
 Using command output as context:
 ```bash
-ifconfig -a | ask My local IP
+ifconfig -a | ask "My local IP"
 ```
 
 ## Thanks
-This project was inspired by the [ask](https://github.com/egoist/shell-ask) project, but since it has a dependency on nodejs, I decided to rewrite it in bash
+This project was inspired by the [egoist/shell-ask](https://github.com/egoist/shell-ask) project, but since it has a dependency on nodejs, I decided to rewrite it in bash
 
 ## License
 **shell-ask** is released under the MIT license. See LICENSE for details.
