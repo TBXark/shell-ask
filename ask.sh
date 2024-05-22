@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o pipefail
+
 api_key=${SHELL_ASK_API_KEY:-""}
 api_model=${SHELL_ASK_API_MODEL:-"gpt-3.5-turbo"}
 api_endpoint=${SHELL_ASK_API_ENDPOINT:-"https://api.openai.com/v1/chat/completions"}
