@@ -72,6 +72,7 @@ Or you can install the plugin manually in the `~/.config/ask.sh/plugins` directo
 Usage: `ask -p PLUGIN_NAME [ARGS]` or `pipe | ask -p PLUGIN_NAME [ARGS]`
 ```bash
 echo "你好，世界" | ask -p translate english
+# Output:
 # Hello, World
 ```
 
