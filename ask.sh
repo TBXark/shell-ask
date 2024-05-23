@@ -83,7 +83,27 @@ load_config() {
 
 get_config() {
     local key=$1
-    jq -r --arg key "$key" '.[$key]' $config_file
+    if [ -f "$config_file" ]; then
+        jq -r --arg key "$key" '.[$key]' $config_file
+    else
+        case $key in
+            api_key)
+                echo $api_key
+                ;;
+            api_model)
+                echo $api_model
+                ;;
+            api_endpoint)
+                echo $api_endpoint
+                ;;
+            answer_language)
+                echo $answer_language
+                ;;
+            *)
+                echo "Key not found: $key"
+                ;;
+        esac
+    fi
 }
 
 set_config() {
