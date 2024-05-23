@@ -80,7 +80,7 @@ The plugin is a script file that implements the `gen_content` (required) and `af
 
 In `after_ask`, you can do many things, such as writing the result to a file or directly executing the command returned by AI.
 
-For details, please refer to Example:[translate.sh](./plugins/translate.sh).
+For details, please refer to [example](./plugins)
 
 
 ## Thanks
