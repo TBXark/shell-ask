@@ -1,6 +1,6 @@
-# shell-ask (shell ver)
+# **shell-ask** (shell ver)
 
-Ask LLM directly from your terminal
+Ask LLM directly from your terminal, and let the AI answer your terminal's output without leaving the terminal. Or generate shell commands you're not familiar with. A bash script will do the trick. You can even manually write plugins to let AI help you do more things.
 
 ![](./preview.png)
 
@@ -69,6 +69,7 @@ ask install-plugin https://raw.githubusercontent.com/TBXark/shell-ask/master/plu
 Or you can install the plugin manually in the `~/.config/ask.sh/plugins` directory
 
 ### Use Plugin
+Usage: `ask -p PLUGIN_NAME [ARGS]` or `pipe | ask -p PLUGIN_NAME [ARGS]`
 ```bash
 echo "你好" | ask -p translate english
 ```
@@ -89,8 +90,6 @@ gen_content() {
     echo "Translate the following text into $question: $context"
 }
 ```
-Plugins are just bash scripts that read the input from the standard input and output the result to the standard output
-
 
 ## Thanks
 This project was inspired by the [egoist/shell-ask](https://github.com/egoist/shell-ask) project, but since it has a dependency on nodejs, I decided to rewrite it in bash
