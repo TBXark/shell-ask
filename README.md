@@ -64,7 +64,7 @@ ifconfig -a | ask "My local IP"
 
 ### Install Plugin
 ```bash
-ask install-plugin https://raw.githubusercontent.com/TBXark/shell-ask/master/plugins/translate
+ask install-plugin https://raw.githubusercontent.com/TBXark/shell-ask/master/plugins/translate.sh
 ```
 Or you can install the plugin manually in the `~/.config/ask.sh/plugins` directory
 
@@ -77,11 +77,17 @@ echo "你好" | ask -p translate english
 ```bash
 #!/bin/bash
 
-location=$1
-question=$2 # target language
-context=$3 # need translation text
+# echo "Location: $(pwd)"
+# You can use same context of ask.sh
 
-echo "将以下文本翻译为 $question: $context"
+# Plugin scripts must include a gen_content function, which takes two parameters. The first parameter is the user's input and the second parameter is the pipeline input.
+gen_content() {
+    question=$1 # target language
+    context=$2 # need translation text
+
+    # You can only have one /dev/stdin output. If your other commands may also cause output, you need to redirect them elsewhere.
+    echo "Translate the following text into $question: $context"
+}
 ```
 Plugins are just bash scripts that read the input from the standard input and output the result to the standard output
 

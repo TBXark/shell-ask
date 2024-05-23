@@ -57,15 +57,15 @@ ask() {
 ask_with_plugin() {
     local input=""
     local plugin=$1
-    local location=$(pwd)
-    local prompt=${@:2}
+    local prompt=$2
 
     if [ -p /dev/stdin ]; then
         input=$(cat -)
     fi
 
     if [ -f "$plugin" ]; then
-        local content=$(sh $plugin $location $prompt $input)
+        source $plugin
+        local content=$(gen_content $prompt $input)
         send_request "$content"
     else
         echo "Plugin not found: $plugin"
@@ -129,7 +129,7 @@ case $1 in
         ;;
     -p|--plugin)
         load_config
-        plugin=$config_dir/plugins/$2
+        plugin=$config_dir/plugins/$2.sh
         prompt=${@:3}
         if [ -f "$plugin" ]; then
             ask_with_plugin $plugin $prompt
