@@ -71,11 +71,14 @@ Or you can install the plugin manually in the `~/.config/ask.sh/plugins` directo
 ### Use Plugin
 Usage: `ask -p PLUGIN_NAME [ARGS]` or `pipe | ask -p PLUGIN_NAME [ARGS]`
 ```bash
-echo "你好" | ask -p translate english
+echo "你好，世界" | ask -p translate english
+# Hello, World
 ```
 
-### Write Plugin
+### Create Plugin
 The plugin is a script file that implements the `gen_content` (required) and `after_ask` (optional) functions. The `gen_content` function is used to generate the context of the question, and the `after_ask` function is used to process AI's response.
+
+In `after_ask`, you can do many things, such as writing the result to a file or directly executing the command returned by AI.
 
 For details, please refer to Example:[translate.sh](./plugins/translate.sh).
 
