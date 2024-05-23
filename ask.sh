@@ -11,7 +11,7 @@ config_file=${SHELL_ASK_CONFIG_FILE:-"$config_dir/config.json"}
 
 
 send_request() {
-    local content=$1
+    local content="$1"
 
     local body=$(jq -n --arg content "$content" --arg model "$api_model" '{
         model: "\($model)",
@@ -70,7 +70,7 @@ ask_with_plugin() {
 
     if [ -f "$plugin" ]; then
         source $plugin
-        local content=$(gen_content $prompt $input)
+        local content=$(gen_content $prompt "$input")
         send_request "$content"
     else
         echo "Plugin not found: $plugin"
@@ -157,7 +157,7 @@ case $1 in
         plugin=$config_dir/plugins/$2.sh
         prompt=${@:3}
         if [ -f "$plugin" ]; then
-            ask_with_plugin $plugin $prompt
+            ask_with_plugin $plugin "$prompt"
         else
             echo "Plugin not found: $plugin"
         fi
