@@ -29,7 +29,7 @@ send_request() {
     if [ "$error" != "null" ]; then
         echo $error
     else
-        result=$(echo $response | jq -r '.choices[0].message.content')
+        local result=$(echo $response | jq -r '.choices[0].message.content')
         if declare -f after_ask > /dev/null; then
             after_ask "$result"
         else
