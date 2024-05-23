@@ -75,21 +75,10 @@ echo "你好" | ask -p translate english
 ```
 
 ### Write Plugin
-```bash
-#!/bin/bash
+The plugin is a script file that implements the `gen_content` (required) and `after_ask` (optional) functions. The `gen_content` function is used to generate the context of the question, and the `after_ask` function is used to process AI's response.
 
-# echo "Location: $(pwd)"
-# You can use same context of ask.sh
+For details, please refer to Example:[translate.sh](./plugins/translate.sh).
 
-# Plugin scripts must include a gen_content function, which takes two parameters. The first parameter is the user's input and the second parameter is the pipeline input.
-gen_content() {
-    question=$1 # target language
-    context=$2 # need translation text
-
-    # You can only have one /dev/stdin output. If your other commands may also cause output, you need to redirect them elsewhere.
-    echo "Translate the following text into $question: $context"
-}
-```
 
 ## Thanks
 This project was inspired by the [egoist/shell-ask](https://github.com/egoist/shell-ask) project, but since it has a dependency on nodejs, I decided to rewrite it in bash

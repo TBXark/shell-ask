@@ -11,3 +11,9 @@ gen_content() {
     # You can only have one /dev/stdin output. If your other commands may also cause output, you need to redirect them elsewhere.
     echo "Translate the following text into $question: $context"
 }
+
+
+after_ask() {
+    local result=$1
+    echo $result
+}
