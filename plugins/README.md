@@ -31,8 +31,8 @@ customCommands:
     stream: false
     subprocess: false
     showOutput: true
+    outputTitle: "Commit Message (Copied)"
     background: true
-
 ```
 
 
