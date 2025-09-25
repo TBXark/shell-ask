@@ -25,9 +25,19 @@ ask set-config answer_language chinese
 ask set-config api_key sk-xxxx
 ask set-config api_model deepseek-chat
 ask set-config api_endpoint https://api.deepseek.com/chat/completions
+ask set-config timeout 60
+ask set-config debug false
 ```
 
 You can also edit `~/.config/ask.sh/config.json` directly
+
+### View Configuration
+```bash
+ask get-config api_key
+ask get-config api_model
+# View all available configuration keys
+ask get-config
+```
 
 ### Environment Variables
 If you don't want to use a configuration file, you can set the configuration via environment variables.
@@ -36,16 +46,21 @@ export SHELL_ASK_API_KEY=xxx
 export SHELL_ASK_API_MODEL=xxx
 export SHELL_ASK_API_ENDPOINT=xxx
 export SHELL_ASK_ANSWER_LANGUAGE=xxx
+export SHELL_ASK_TIMEOUT=60
+export SHELL_ASK_DEBUG=false
 ```
 
 Or you can change configuration file path by setting `SHELL_ASK_CONFIG_FILE` environment variable
 
 ```bash
 export SHELL_ASK_CONFIG_FILE=/path/to/config.json
+export SHELL_ASK_CONFIG_DIR=/path/to/config/dir
 ```
 
 
 ## Usage
+
+### Basic Commands
 Generate Shell commands based on questions:
 ```bash
 ask "What was my last git commit message?"
@@ -60,7 +75,44 @@ ifconfig -a | ask "My local IP"
 # Your local IP address is `192.168.31.200`
 ```
 
+### Debug Mode
+Enable debug mode to see detailed request/response information:
+```bash
+ask --debug "How to list files?"
+# Or set via environment
+export SHELL_ASK_DEBUG=true
+ask "How to list files?"
+```
+
+### Configuration Management
+```bash
+# Set configuration
+ask set-config api_key sk-xxxx
+ask set-config timeout 30
+
+# View configuration
+ask get-config api_key
+ask get-config timeout
+
+# View help
+ask --help
+ask --version
+```
+
 ## Plugins
+
+### Plugin Management
+```bash
+# Install a plugin
+ask install-plugin https://raw.githubusercontent.com/TBXark/shell-ask/master/plugins/translate.sh
+
+# List installed plugins  
+ask list-plugins
+
+# Use a plugin
+ask -p translate "你好，世界" english
+echo "Hello, World" | ask -p translate chinese
+```
 
 ### Install Plugin
 ```bash
@@ -82,6 +134,49 @@ The plugin is a script file that implements the `gen_content` (required) and `af
 In `after_ask`, you can do many things, such as writing the result to a file or directly executing the command returned by AI.
 
 For details, please refer to [example](./plugins)
+
+## Command Reference
+
+### Basic Usage
+```bash
+ask "your question"                    # Ask a question
+command | ask "explain this output"   # Use command output as context
+ask --debug "question"                # Enable debug mode
+ask --help                            # Show help
+ask --version                         # Show version
+```
+
+### Configuration Commands
+```bash
+ask set-config <key> <value>          # Set configuration value
+ask get-config <key>                  # Get configuration value
+```
+
+**Available configuration keys:**
+- `api_key` - API key for LLM service
+- `api_model` - Model name (default: gpt-5-nano)
+- `api_endpoint` - API endpoint URL (default: OpenAI API)
+- `answer_language` - Response language (default: english)
+- `timeout` - Request timeout in seconds (default: 60)
+- `debug` - Enable debug mode (default: false)
+
+### Plugin Commands
+```bash
+ask install-plugin <url>              # Install plugin from URL
+ask list-plugins                      # List installed plugins
+ask -p <plugin_name> [args]           # Use a plugin
+```
+
+### Environment Variables
+All configuration can be overridden using environment variables:
+- `SHELL_ASK_API_KEY`
+- `SHELL_ASK_API_MODEL`
+- `SHELL_ASK_API_ENDPOINT`
+- `SHELL_ASK_ANSWER_LANGUAGE`
+- `SHELL_ASK_TIMEOUT`
+- `SHELL_ASK_DEBUG`
+- `SHELL_ASK_CONFIG_FILE` - Custom config file path
+- `SHELL_ASK_CONFIG_DIR` - Custom config directory path
 
 
 ## Thanks
