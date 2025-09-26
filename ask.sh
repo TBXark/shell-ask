@@ -471,7 +471,7 @@ ENVIRONMENT VARIABLES:
 EXAMPLES:
     ask "How to find files larger than 1GB?"
     ls -la | ask "What's taking up the most space?"
-    ask -p translate "Hello world" english
+    ask -p translate english "Hello world"
     ask set-config api_key sk-xxx
     ask install-plugin https://raw.githubusercontent.com/TBXark/ask.sh/master/plugins/translate.sh
 
