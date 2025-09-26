@@ -1,0 +1,11 @@
+# Development files
+.git/
+.gitignore
+.DS_Store
+*.log
+
+# Documentation that's not needed in the package
+preview.png
+
+# Keep only essential files for the CLI tool
+# ask.sh, plugins/, scripts/, README.md, LICENSE, package.json will be included

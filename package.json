@@ -1,0 +1,43 @@
+{
+  "name": "ask.sh",
+  "version": "0.0.2",
+  "description": "Ask LLM directly from your terminal",
+  "keywords": [
+    "terminal",
+    "ai",
+    "chatgpt",
+    "cli",
+    "shell"
+  ],
+  "homepage": "https://github.com/TBXark/shell-ask#readme",
+  "bugs": {
+    "url": "https://github.com/TBXark/shell-ask/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TBXark/shell-ask.git"
+  },
+  "license": "MIT",
+  "author": "TBXark",
+  "bin": {
+    "ask": "./ask.sh"
+  },
+  "files": [
+    "ask.sh",
+    "scripts/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "test": "bash ask.sh --help",
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "preferGlobal": true,
+  "os": [
+    "darwin",
+    "linux"
+  ]
+}

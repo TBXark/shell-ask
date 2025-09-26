@@ -8,11 +8,21 @@ Ask LLM directly from your terminal, and let the AI answer your terminal's outpu
 
 This script is written in bash, Simply download the script and add execution permissions, this script relies on `curl` and `jq`, make sure they are installed on your system!
 
+### Interactive Install
+```bash
+curl -fsSL https://raw.githubusercontent.com/TBXark/shell-ask/master/install.sh | bash
+```
+This will prompt you to choose the installation directory (default: `/usr/local/bin/`).
+
+### Manual Install
 ```bash
 curl https://raw.githubusercontent.com/TBXark/shell-ask/master/ask.sh > /usr/local/bin/ask
 chmod +x /usr/local/bin/ask
 ```
-
+### Install by npm
+```bash
+npm install -g ask.sh
+```
 
 ## Supported LLMs
 - All OpenAI Compatible LLMs API
