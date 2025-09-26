@@ -4,13 +4,13 @@ const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-console.log('Setting up shell-ask...');
+console.log('Setting up ask.sh...');
 
 // Make ask.sh executable
 const askPath = path.join(__dirname, '..', 'ask.sh');
 if (fs.existsSync(askPath)) {
     execSync(`chmod +x "${askPath}"`);
-    console.log('shell-ask has been installed successfully!');
+    console.log('ask.sh has been installed successfully!');
     console.log('You can now use \'ask\' command in your terminal.');
     console.log('');
     console.log('To get started, set up your API key:');

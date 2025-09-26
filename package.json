@@ -9,13 +9,13 @@
     "cli",
     "shell"
   ],
-  "homepage": "https://github.com/TBXark/shell-ask#readme",
+  "homepage": "https://github.com/TBXark/ask.sh#readme",
   "bugs": {
-    "url": "https://github.com/TBXark/shell-ask/issues"
+    "url": "https://github.com/TBXark/ask.sh/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TBXark/shell-ask.git"
+    "url": "git+https://github.com/TBXark/ask.sh.git"
   },
   "license": "MIT",
   "author": "TBXark",

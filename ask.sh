@@ -4,14 +4,14 @@ set -o pipefail
 
 VERSION="0.0.2"
 
-api_key=${SHELL_ASK_API_KEY:-""}
-api_model=${SHELL_ASK_API_MODEL:-"gpt-5-nano"}
-api_endpoint=${SHELL_ASK_API_ENDPOINT:-"https://api.openai.com/v1/chat/completions"}
-answer_language=${SHELL_ASK_ANSWER_LANGUAGE:-"english"}
-config_dir=${SHELL_ASK_CONFIG_DIR:-"$HOME/.config/ask.sh"}
-config_file=${SHELL_ASK_CONFIG_FILE:-"$config_dir/config.json"}
-timeout=${SHELL_ASK_TIMEOUT:-60}
-debug=${SHELL_ASK_DEBUG:-false}
+api_key=${ASK_SH_API_KEY:-""}
+api_model=${ASK_SH_API_MODEL:-"gpt-5-nano"}
+api_endpoint=${ASK_SH_API_ENDPOINT:-"https://api.openai.com/v1/chat/completions"}
+answer_language=${ASK_SH_ANSWER_LANGUAGE:-"english"}
+config_dir=${ASK_SH_CONFIG_DIR:-"$HOME/.config/ask.sh"}
+config_file=${ASK_SH_CONFIG_FILE:-"$config_dir/config.json"}
+timeout=${ASK_SH_TIMEOUT:-60}
+debug=${ASK_SH_DEBUG:-false}
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -60,7 +60,7 @@ validate_config() {
     if [ -z "$api_key" ]; then
         log_error "API key is not set. Please set it using:"
         echo "  ask set-config api_key YOUR_API_KEY"
-        echo "  or set SHELL_ASK_API_KEY environment variable"
+        echo "  or set ASK_SH_API_KEY environment variable"
         exit 1
     fi
     
@@ -434,7 +434,7 @@ list_plugins() {
 
 show_help() {
     cat << EOF
-shell-ask v$VERSION - Ask LLM directly from your terminal
+ask.sh v$VERSION - Ask LLM directly from your terminal
 
 USAGE:
     ask [OPTIONS] "your question"
@@ -461,22 +461,22 @@ CONFIGURATION KEYS:
     debug            Enable debug mode (true/false)
 
 ENVIRONMENT VARIABLES:
-    SHELL_ASK_API_KEY          Override api_key
-    SHELL_ASK_API_MODEL        Override api_model  
-    SHELL_ASK_API_ENDPOINT     Override api_endpoint
-    SHELL_ASK_ANSWER_LANGUAGE  Override answer_language
-    SHELL_ASK_TIMEOUT          Override timeout
-    SHELL_ASK_DEBUG            Override debug mode
-    SHELL_ASK_CONFIG_FILE      Override config file path
+    ASK_SH_API_KEY          Override api_key
+    ASK_SH_API_MODEL        Override api_model  
+    ASK_SH_API_ENDPOINT     Override api_endpoint
+    ASK_SH_ANSWER_LANGUAGE  Override answer_language
+    ASK_SH_TIMEOUT          Override timeout
+    ASK_SH_DEBUG            Override debug mode
+    ASK_SH_CONFIG_FILE      Override config file path
 
 EXAMPLES:
     ask "How to find files larger than 1GB?"
     ls -la | ask "What's taking up the most space?"
     ask -p translate "Hello world" english
     ask set-config api_key sk-xxx
-    ask install-plugin https://raw.githubusercontent.com/TBXark/shell-ask/master/plugins/translate.sh
+    ask install-plugin https://raw.githubusercontent.com/TBXark/ask.sh/master/plugins/translate.sh
 
-For more information, visit: https://github.com/TBXark/shell-ask
+For more information, visit: https://github.com/TBXark/ask.sh
 EOF
 }
 
@@ -490,7 +490,7 @@ main() {
             exit 0
             ;;
         -v|--version|version)
-            echo "shell-ask v$VERSION"
+            echo "ask.sh v$VERSION"
             exit 0
             ;;
         --debug)

@@ -1,4 +1,4 @@
-# **shell-ask** (shell ver)
+# **ask.sh**
 
 Ask LLM directly from your terminal, and let the AI answer your terminal's output without leaving the terminal. Or generate shell commands you're not familiar with. A bash script will do the trick. You can even manually write plugins to let AI help you do more things.
 
@@ -8,15 +8,9 @@ Ask LLM directly from your terminal, and let the AI answer your terminal's outpu
 
 This script is written in bash, Simply download the script and add execution permissions, this script relies on `curl` and `jq`, make sure they are installed on your system!
 
-### Interactive Install
-```bash
-curl -fsSL https://raw.githubusercontent.com/TBXark/shell-ask/master/install.sh | bash
-```
-This will prompt you to choose the installation directory (default: `/usr/local/bin/`).
-
 ### Manual Install
 ```bash
-curl https://raw.githubusercontent.com/TBXark/shell-ask/master/ask.sh > /usr/local/bin/ask
+curl https://raw.githubusercontent.com/TBXark/ask.sh/master/ask.sh > /usr/local/bin/ask
 chmod +x /usr/local/bin/ask
 ```
 ### Install by npm
@@ -52,19 +46,19 @@ ask get-config
 ### Environment Variables
 If you don't want to use a configuration file, you can set the configuration via environment variables.
 ```bash
-export SHELL_ASK_API_KEY=xxx
-export SHELL_ASK_API_MODEL=xxx
-export SHELL_ASK_API_ENDPOINT=xxx
-export SHELL_ASK_ANSWER_LANGUAGE=xxx
-export SHELL_ASK_TIMEOUT=60
-export SHELL_ASK_DEBUG=false
+export ASK_SH_API_KEY=xxx
+export ASK_SH_API_MODEL=xxx
+export ASK_SH_API_ENDPOINT=xxx
+export ASK_SH_ANSWER_LANGUAGE=xxx
+export ASK_SH_TIMEOUT=60
+export ASK_SH_DEBUG=false
 ```
 
-Or you can change configuration file path by setting `SHELL_ASK_CONFIG_FILE` environment variable
+Or you can change configuration file path by setting `ASK_SH_CONFIG_FILE` environment variable
 
 ```bash
-export SHELL_ASK_CONFIG_FILE=/path/to/config.json
-export SHELL_ASK_CONFIG_DIR=/path/to/config/dir
+export ASK_SH_CONFIG_FILE=/path/to/config.json
+export ASK_SH_CONFIG_DIR=/path/to/config/dir
 ```
 
 
@@ -90,7 +84,7 @@ Enable debug mode to see detailed request/response information:
 ```bash
 ask --debug "How to list files?"
 # Or set via environment
-export SHELL_ASK_DEBUG=true
+export ASK_SH_DEBUG=true
 ask "How to list files?"
 ```
 
@@ -114,7 +108,7 @@ ask --version
 ### Plugin Management
 ```bash
 # Install a plugin
-ask install-plugin https://raw.githubusercontent.com/TBXark/shell-ask/master/plugins/translate.sh
+ask install-plugin https://raw.githubusercontent.com/TBXark/ask.sh/master/plugins/translate.sh
 
 # List installed plugins  
 ask list-plugins
@@ -126,7 +120,7 @@ echo "Hello, World" | ask -p translate chinese
 
 ### Install Plugin
 ```bash
-ask install-plugin https://raw.githubusercontent.com/TBXark/shell-ask/master/plugins/translate.sh
+ask install-plugin https://raw.githubusercontent.com/TBXark/ask.sh/master/plugins/translate.sh
 ```
 Or you can install the plugin manually in the `~/.config/ask.sh/plugins` directory
 
@@ -179,18 +173,18 @@ ask -p <plugin_name> [args]           # Use a plugin
 
 ### Environment Variables
 All configuration can be overridden using environment variables:
-- `SHELL_ASK_API_KEY`
-- `SHELL_ASK_API_MODEL`
-- `SHELL_ASK_API_ENDPOINT`
-- `SHELL_ASK_ANSWER_LANGUAGE`
-- `SHELL_ASK_TIMEOUT`
-- `SHELL_ASK_DEBUG`
-- `SHELL_ASK_CONFIG_FILE` - Custom config file path
-- `SHELL_ASK_CONFIG_DIR` - Custom config directory path
+- `ASK_SH_API_KEY`
+- `ASK_SH_API_MODEL`
+- `ASK_SH_API_ENDPOINT`
+- `ASK_SH_ANSWER_LANGUAGE`
+- `ASK_SH_TIMEOUT`
+- `ASK_SH_DEBUG`
+- `ASK_SH_CONFIG_FILE` - Custom config file path
+- `ASK_SH_CONFIG_DIR` - Custom config directory path
 
 
 ## Thanks
 This project was inspired by the [egoist/shell-ask](https://github.com/egoist/shell-ask) project, but since it has a dependency on nodejs, I decided to rewrite it in bash
 
 ## License
-**shell-ask** is released under the MIT license. See LICENSE for details.
+**ask.sh** is released under the MIT license. See LICENSE for details.
