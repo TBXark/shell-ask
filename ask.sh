@@ -2,7 +2,7 @@
 
 set -o pipefail
 
-VERSION="0.0.2"
+VERSION="0.0.3"
 
 api_key=${ASK_SH_API_KEY:-""}
 api_model=${ASK_SH_API_MODEL:-"gpt-5-nano"}
@@ -18,7 +18,6 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-# Log functions
 log_error() {
     echo -e "${RED}Error: $1${NC}" >&2
 }
@@ -454,7 +453,7 @@ CONFIGURATION:
 
 CONFIGURATION KEYS:
     api_key          API key for LLM service
-    api_model        Model name (e.g., gpt-3.5-turbo)
+    api_model        Model name (e.g., gpt-5-nano)
     api_endpoint     API endpoint URL
     answer_language  Language for responses (e.g., english, chinese)
     timeout          Request timeout in seconds (default: 30)
@@ -480,7 +479,6 @@ For more information, visit: https://github.com/TBXark/ask.sh
 EOF
 }
 
-# Main script logic
 main() {
     check_dependencies
     
